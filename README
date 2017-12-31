@@ -1,0 +1,36 @@
+Introduction
+------------
+
+NPFS is a classic UNIX-style inode-based filesystem, implemented
+using FUSE. Try it; it works!
+
+You can build the program as follows:
+	$ make test TEST=fuse_wrappers.c
+
+The FUSE test becomes much easier to debug like this, as it will run
+in the foreground and display error messages:
+	$ ./npfsd -f -s /mnt &
+
+Modules
+-------
+
+* fs 		Creating and mounting the filesystem
+* inode		The inode table and file I/O
+* dir		Root directory
+* filedes	File descriptor table (only maintains state)
+* blkio		Wrappers around the disk emulator
+* sfs_api.c	Calls functions in these modules
+
+
+Implementation Notes
+--------------------
+
+Clang's -fsanitize=address does not identify any problems in *my* 
+code, and I've been very meticulous about the design as well.
+
+The rather odd filesystem format was specified for this assignment
+and I did not change it except where necessary to make things work.
+
+All files in src/, and sfs_api.c are (C) Copyright 2017 Nicholas Paun.
+Files in the root directory were provided for the implementation of
+the assignment and are somewhat modified.
